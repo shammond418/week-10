@@ -1,0 +1,56 @@
+  the ecx register is set to 10 and a section of the code increases eax until ecx is 0 by using a loop.
+section .text
+        global _start
+_start:
+        mov ecx,10  ;ecx is a counter register
+        label:
+        inc eax
+        loop label
+        mov eax,1
+        int 0x80
+
+For the Fibonacci sequence, I had set ecx to 55. I then create a loop which adds a sum to the previous number, and each addition it subtracts 55 to check if its 0. If it is, it stops, and if it doesn't, it continues until it reaches 55, 
+
+section .text
+        global _start
+_start:
+        mov ecx,55  ;ecx is a counter register
+        mov eax, 0
+        mov ebx, 1
+        add eax, ebx
+        label:
+        mov [temp], eax
+        add eax, ebx    ;1+1 = 2
+        mov ebx, [temp]
+        mov [display], eax      
+        mov edx, [display]
+        sub edx, 55
+        jz exit
+        loop label
+        exit:
+        mov eax,1
+        int 0x80
+section .bss
+        temp resb 1
+        display resb 1
+        
+///////////////////////////////////////////////
+Array 
+section .text
+        global _start
+_start:
+        mov eax,5       ;length
+        mov ebx,0       ;initializing  ebx 0
+        mov ecx,array   ;
+                                                                      
+top:
+        add ebx,[ecx]   ;
+        add ecx,5      ;
+        dec eax        ;decrease
+                        
+        mov [result], ecx
+        jnz top         ;
+        mov eax,1       
+        int 0x80.
+
+
